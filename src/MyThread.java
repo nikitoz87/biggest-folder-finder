@@ -1,4 +1,5 @@
 public class MyThread extends Thread
+    // Deprecated class
 {
 
     private int threadNumber;

@@ -4,9 +4,20 @@ import java.util.concurrent.ForkJoinPool;
 public class Main {
     public static void main(String[] args) {
 
-        String folderPath = "D:\\!ISO";
+        //for (int i = 0; i < args.length; i++) {
+        //    System.out.println(i + " => " + args[i]);
+        //}
+
+        ParametersBag bag = new ParametersBag(args);
+
+        String folderPath = bag.getPath();
+        long sizeLimit = bag.getLimit();
+
+        //String folderPath = "D:\\!ISO";
+        //long sizeLimit = 50 * 1024 * 1024;
+
         File file = new File(folderPath);
-        Node root = new Node(file);
+        Node root = new Node(file,sizeLimit);
 
         long start = System.currentTimeMillis();
 
@@ -18,35 +29,11 @@ public class Main {
         long duration = System.currentTimeMillis() - start;
         System.out.println(duration + " milliseconds");
 
-        System.exit(0);
-
-        // Trials
-        /*
-        String a = "235Kb";
-        long b = getSizeFromHumanReadable(a);
-        System.out.println("Long value of String: " + a + " is: " + b);
-
-        long l = 240640L;
-        String s = getHumanReadableSize(l);
-        System.out.println("String value of Long: " + l + " is: " + s);
-        */
-
-        String stingSize = "10000100Gb";
-        char sizeFactor = stingSize.replaceAll("[0-9\\s+]+", "").charAt(0);
-        System.out.println("char is: " + sizeFactor);
-
-        /*
-        MyThread thread = new MyThread(1);
-        MyThread thread2 = new MyThread(2);
-        thread.start();
-        thread2.start();
-        */
-        //System.out.println(System.getProperties().get("user.dir"));
-
     }
 
 
     public static long getFolderSize (File folder)
+            // Deprecated method
     {
         if (folder.isFile()) {
             return folder.length();
